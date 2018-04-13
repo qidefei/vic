@@ -717,6 +717,17 @@ Install VIC with version to Test Server
     Set Environment Variable  INITIAL-VERSION  ${version}
     Run  rm -rf vic.tar.gz vic
 
+Install VIC release to Test Server
+    [Arguments]  ${version}  ${cleanup}=${true}  ${additional-args}=
+    Log To Console  \nDownloading vic release ${version} from gcp...
+    ${rc}  ${output}=  Run And Return Rc And Output  wget https://storage.googleapis.com/vic-engine-releases/vic_v${version}.tar.gz -O vic.tar.gz
+    ${rc}  ${output}=  Run And Return Rc And Output  tar zxvf vic.tar.gz
+    Install VIC Appliance To Test Server  vic-machine=./vic/vic-machine-linux  appliance-iso=./vic/appliance.iso  bootstrap-iso=./vic/bootstrap.iso  certs=${false}  cleanup=${cleanup}  additional-args=${additional-args}
+
+    Set Environment Variable  VIC-ADMIN  %{VCH-IP}:2378
+    Set Environment Variable  INITIAL-VERSION  ${version}
+    Run  rm -rf vic.tar.gz vic
+
 Clean up VIC Appliance And Local Binary
     Cleanup VIC Appliance On Test Server
     Run  rm -rf vic.tar.gz vic
