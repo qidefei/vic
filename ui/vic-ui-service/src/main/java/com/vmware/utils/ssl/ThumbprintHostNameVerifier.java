@@ -30,4 +30,4 @@ public class ThumbprintHostNameVerifier implements HostnameVerifier {
          throw new SSLException(e.getMessage());
       }
    }
-}
+}呵呵，就想看哈！！！
